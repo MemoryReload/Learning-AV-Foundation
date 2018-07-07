@@ -142,6 +142,11 @@
 				CLASSPREFIX = TH;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Bob McCune";
+				TargetAttributes = {
+					C441119318163B8D005C0699 = {
+						DevelopmentTeam = Z86DT6Z4G7;
+					};
+				};
 			};
 			buildConfigurationList = C441118F18163B8D005C0699 /* Build configuration list for PBXProject "Hello AV Foundation" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -296,10 +301,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_MODULES_AUTOLINK = YES;
+				DEVELOPMENT_TEAM = Z86DT6Z4G7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hello AV Foundation/Hello AV Foundation-Prefix.pch";
 				INFOPLIST_FILE = "Hello AV Foundation/Hello AV Foundation-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tapharmonic.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Hello-AV-Foundation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,10 +317,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_MODULES_AUTOLINK = YES;
+				DEVELOPMENT_TEAM = Z86DT6Z4G7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hello AV Foundation/Hello AV Foundation-Prefix.pch";
 				INFOPLIST_FILE = "Hello AV Foundation/Hello AV Foundation-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tapharmonic.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Hello-AV-Foundation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

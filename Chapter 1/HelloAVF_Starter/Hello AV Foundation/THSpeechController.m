@@ -31,13 +31,38 @@
 @end
 
 @implementation THSpeechController
+@synthesize synthesizer=_synthesizer;
 
 + (instancetype)speechController {
     return [[self alloc] init];
 }
 
-- (void)beginConversation {
+-(AVSpeechSynthesizer *)synthesizer
+{
+    if (!_synthesizer) {
+        _synthesizer = [[AVSpeechSynthesizer alloc]init];
+    }
+    return _synthesizer;
+}
 
+- (void)beginConversation {
+    AVSpeechSynthesisVoice* en_voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    AVSpeechSynthesisVoice* ch_voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    for(AVSpeechSynthesisVoice* voice in [AVSpeechSynthesisVoice speechVoices]){
+        if (@available(iOS 9.0, *)) {
+            NSLog(@"%@    %@    %@",voice.name, voice.language, voice.identifier);
+        }
+        else{
+            NSLog(@"%@", voice.language);
+        }
+    }
+    NSLog(@">>>>>>>>>current voice: %@",[AVSpeechSynthesisVoice currentLanguageCode]);
+    AVSpeechUtterance* utterance1 = [[AVSpeechUtterance alloc]initWithString:@"Hello guys! Happy weekend!"];
+    utterance1.voice=en_voice;
+    [self.synthesizer speakUtterance:utterance1];
+    AVSpeechUtterance* utterance2 = [[AVSpeechUtterance alloc] initWithString:@"你好，朋友们！"];
+    utterance2.voice=ch_voice;
+    [self.synthesizer speakUtterance:utterance2];
 }
 
 @end
