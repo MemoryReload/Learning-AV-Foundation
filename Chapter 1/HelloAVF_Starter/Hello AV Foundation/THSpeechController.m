@@ -76,6 +76,9 @@
     for (int i=0; i<self.speechStrings.count; i++) {
         AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc]initWithString:self.speechStrings[i]];
         utterance.voice=[self.voices objectAtIndex:i%2];
+        utterance.rate = 0.4;
+        utterance.pitchMultiplier = 0.8;
+        utterance.postUtteranceDelay = 0.1;
         [self.synthesizer speakUtterance:utterance];
     }
 }
