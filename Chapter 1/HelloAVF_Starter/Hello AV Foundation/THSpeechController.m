@@ -32,6 +32,8 @@
 
 @implementation THSpeechController
 @synthesize synthesizer=_synthesizer;
+@synthesize voices=_voices;
+@synthesize speechStrings=_speechStrings;
 
 + (instancetype)speechController {
     return [[self alloc] init];
@@ -45,24 +47,37 @@
     return _synthesizer;
 }
 
-- (void)beginConversation {
-    AVSpeechSynthesisVoice* en_voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
-    AVSpeechSynthesisVoice* ch_voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
-    for(AVSpeechSynthesisVoice* voice in [AVSpeechSynthesisVoice speechVoices]){
-        if (@available(iOS 9.0, *)) {
-            NSLog(@"%@    %@    %@",voice.name, voice.language, voice.identifier);
-        }
-        else{
-            NSLog(@"%@", voice.language);
-        }
+-(NSArray *)voices
+{
+    if (!_voices) {
+        _voices = @[[AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"],
+                    [AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"]];
     }
-    NSLog(@">>>>>>>>>current voice: %@",[AVSpeechSynthesisVoice currentLanguageCode]);
-    AVSpeechUtterance* utterance1 = [[AVSpeechUtterance alloc]initWithString:@"Hello guys! Happy weekend!"];
-    utterance1.voice=en_voice;
-    [self.synthesizer speakUtterance:utterance1];
-    AVSpeechUtterance* utterance2 = [[AVSpeechUtterance alloc] initWithString:@"你好，朋友们！"];
-    utterance2.voice=ch_voice;
-    [self.synthesizer speakUtterance:utterance2];
+    return _voices;
+}
+
+-(NSArray *)speechStrings
+{
+    if (!_speechStrings) {
+        _speechStrings = @[@"Hello AV Foundation. How are you?",
+                           @"我很好谢谢关心！",
+                           @"Are you excited about the book?",
+                           @"非常兴奋！我总是感觉被人误解。",
+                           @"What's your favorite feature?",
+                           @"噢，他们都是我的宝贝，我很难抉择。",
+                           @"It was great to speak with you!",
+                           @"我也很高兴！玩的开心！"
+                           ];
+    }
+    return _speechStrings;
+}
+
+- (void)beginConversation {    
+    for (int i=0; i<self.speechStrings.count; i++) {
+        AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc]initWithString:self.speechStrings[i]];
+        utterance.voice=[self.voices objectAtIndex:i%2];
+        [self.synthesizer speakUtterance:utterance];
+    }
 }
 
 @end

@@ -28,6 +28,8 @@
 @interface THSpeechController : NSObject
 
 @property (strong, nonatomic, readonly) AVSpeechSynthesizer *synthesizer;
+@property (strong, nonatomic, readonly) NSArray* voices;
+@property (strong, nonatomic, readonly) NSArray* speechStrings;
 
 + (instancetype)speechController;
 - (void)beginConversation;
