@@ -26,22 +26,33 @@
 #import "THPlayerController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface THPlayerController ()
-@property (nonatomic,strong) NSArray* players;
-@end
-
 @implementation THPlayerController
+{
+    NSArray* _players;
+}
 
+-(void)dealloc
+{
+    [self removeNotifications];
+}
+
+#pragma mark - initilization methods
 -(instancetype)init
 {
     self = [super init];
     if (self) {
-        _players =@[[self playerForFile:@"guitar"],
-                    [self playerForFile:@"bass"],
-                    [self playerForFile:@"drums"]];
         _playing=NO;
+        [self initializePlayers];
+        [self registerNotifications];
     }
     return self;
+}
+
+-(void)initializePlayers
+{
+    _players =@[[self playerForFile:@"guitar"],
+                [self playerForFile:@"bass"],
+                [self playerForFile:@"drums"]];
 }
 
 -(AVAudioPlayer*)playerForFile:(NSString*)name
@@ -60,6 +71,21 @@
     return player;
 }
 
+#pragma mark - notification manage methods
+-(void)registerNotifications
+{
+    //注册音频打断通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:nil];
+}
+
+-(void)removeNotifications
+{
+    //注销音频打断通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+}
+
+#pragma mark - playback methods
 - (void)play {
     if (!_playing) {
         NSTimeInterval delayTime = [(AVAudioPlayer*)_players[0] deviceCurrentTime]+0.01;
@@ -98,4 +124,26 @@
     player.volume = volume;
 }
 
+#pragma mark - AudioSessionInterruptionNotification handling
+-(void)handleAudioSessionInterruptionNotification:(NSNotification*)noti
+{
+    AVAudioSessionInterruptionType type = [[[noti userInfo] objectForKey:AVAudioSessionInterruptionTypeKey] integerValue];
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        //stop the players
+        [self stop];
+
+        BOOL isSuspended = [[[noti userInfo] objectForKey:AVAudioSessionInterruptionWasSuspendedKey] boolValue];
+        if (isSuspended) {
+            //the app is suspended,and now starts running again, do some thing if necessary.
+            [self play];
+        }
+    }
+    else if (type == AVAudioSessionInterruptionTypeEnded){
+        //If audio session should be resume, resume the play.
+        AVAudioSessionInterruptionOptions option = [[[noti userInfo] objectForKey:AVAudioSessionInterruptionOptionKey] integerValue];
+        if (option == AVAudioSessionInterruptionOptionShouldResume) {
+            [self play];
+        }
+    }
+}
 @end
