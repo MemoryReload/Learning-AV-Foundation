@@ -74,9 +74,9 @@ const float kScalingFactor = 4.0f;
 	_maximumValue = 1.0f;
 	_value = _defaultValue;
 
-	_indicatorView = [[THIndicatorLight alloc] initWithFrame:self.bounds];
+    _indicatorView = [[THIndicatorLight alloc] initWithFrame:self.bounds];
     _indicatorView.lightColor = [self indicatorLightColor];
-	[self addSubview:_indicatorView];
+    [self addSubview:_indicatorView];
 
 	[self valueDidChangeFrom:_defaultValue to:_defaultValue animated:NO];
 }
@@ -211,25 +211,25 @@ const float kScalingFactor = 4.0f;
 	CGRect insetRect = CGRectInset(rect, 2.0f, 2.0f);
 
 	// Draw Bezel
-	CGContextSetFillColorWithColor(context, strokeColor.CGColor);
-	CGContextFillEllipseInRect(context, insetRect);
+    CGContextSetFillColorWithColor(context, strokeColor.CGColor);
+    CGContextFillEllipseInRect(context, insetRect);
 
-	CGFloat midX = CGRectGetMidX(insetRect);
-	CGFloat midY = CGRectGetMidY(insetRect);
+    CGFloat midX = CGRectGetMidX(insetRect);
+    CGFloat midY = CGRectGetMidY(insetRect);
 
-	// Draw Bezel Light Shadow Layer
-	CGContextAddArc(context, midX, midY, CGRectGetWidth(insetRect) / 2, 0, M_PI * 2, 1);
-	CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 0.5f), 2.0f, [UIColor darkGrayColor].CGColor);
-	CGContextFillPath(context);
+    // Draw Bezel Light Shadow Layer
+    CGContextAddArc(context, midX, midY, CGRectGetWidth(insetRect) / 2, 0, M_PI * 2, 1);
+    CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 0.5f), 2.0f, [UIColor darkGrayColor].CGColor);
+    CGContextFillPath(context);
 
-	// Add Clipping Region for Knob Background
-	CGContextAddArc(context, midX, midY, (CGRectGetWidth(insetRect) - 6) / 2, 0, M_PI * 2, 1);
-	CGContextClip(context);
+    // Add Clipping Region for Knob Background
+    CGContextAddArc(context, midX, midY, (CGRectGetWidth(insetRect) - 6) / 2, 0, M_PI * 2, 1);
+    CGContextClip(context);
 
-	CGPoint startPoint = CGPointMake(midX, CGRectGetMaxY(insetRect));
-	CGPoint endPoint = CGPointMake(midX, CGRectGetMinY(insetRect));
+    CGPoint startPoint = CGPointMake(midX, CGRectGetMaxY(insetRect));
+    CGPoint endPoint = CGPointMake(midX, CGRectGetMinY(insetRect));
 
-	CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
 
 	CGGradientRelease(gradient);
 	CGColorSpaceRelease(colorSpace);

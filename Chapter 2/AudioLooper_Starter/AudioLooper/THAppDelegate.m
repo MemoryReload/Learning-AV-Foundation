@@ -29,7 +29,14 @@
 @implementation THAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    NSError* error;
+    if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error]) {
+        NSLog(@"Set audio session category failed: %@",[error localizedDescription]);
+    }
+    error = nil;
+    if (![[AVAudioSession sharedInstance] setActive:YES error:&error]) {
+        NSLog(@"Active audio session failed: %@",[error localizedDescription]);
+    }
     return YES;
 }
 
