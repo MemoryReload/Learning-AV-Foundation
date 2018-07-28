@@ -77,12 +77,20 @@
     //注册音频打断通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:nil];
+    //注册输入输出变更通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAudioSessionRouteChangeNotification:) name:AVAudioSessionRouteChangeNotification object:nil];
+    //注册第二音频静音通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAudioSessionSilenceSecondaryAudioHintNotification:) name:AVAudioSessionSilenceSecondaryAudioHintNotification object:nil];
 }
 
 -(void)removeNotifications
 {
     //注销音频打断通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+    //注销输入输出变更通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+    //注销第二音频静音通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionSilenceSecondaryAudioHintNotification object:nil];
 }
 
 #pragma mark - playback methods
@@ -131,18 +139,66 @@
     if (type == AVAudioSessionInterruptionTypeBegan) {
         //stop the players
         [self stop];
-
+        if (self.delegate) {
+            [self.delegate playbackStopped];
+        }
         BOOL isSuspended = [[[noti userInfo] objectForKey:AVAudioSessionInterruptionWasSuspendedKey] boolValue];
         if (isSuspended) {
             //the app is suspended,and now starts running again, do some thing if necessary.
             [self play];
+            if (self.delegate) {
+                [self.delegate playbackBegan];
+            }
         }
     }
     else if (type == AVAudioSessionInterruptionTypeEnded){
-        //If audio session should be resume, resume the play.
         AVAudioSessionInterruptionOptions option = [[[noti userInfo] objectForKey:AVAudioSessionInterruptionOptionKey] integerValue];
         if (option == AVAudioSessionInterruptionOptionShouldResume) {
+            //If audio session should be resume, resume the play.
             [self play];
+            if (self.delegate) {
+                [self.delegate playbackBegan];
+            }
+        }
+    }
+}
+
+#pragma mark - AudioSessionRouteChangeNotification
+-(void)handleAudioSessionRouteChangeNotification:(NSNotification*)noti
+{
+    AVAudioSessionRouteChangeReason reason = [[[noti userInfo] valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    if (reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
+        AVAudioSessionRouteDescription* previousRoute = [[noti userInfo] valueForKey:AVAudioSessionRouteChangePreviousRouteKey];
+        AVAudioSessionPortDescription* port = [previousRoute outputs][0];
+        if ([port.portType isEqualToString:AVAudioSessionPortHeadphones]) {
+            [self stop];
+            if (self.delegate) {
+                //This notification is from AVAudioSession Notify Thread, a background thread.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate playbackStopped];
+                });
+            }
+        }
+    }
+}
+
+#pragma mark - AudioSessionSilenceSecondaryAudioHintNotification
+/*
+ It seems that it only works for AVAudioSessionCategoryAmbient, instead of mix with others,
+ system will post this notification to give you a chance to silence your sound.
+ */
+-(void)handleAudioSessionSilenceSecondaryAudioHintNotification:(NSNotification*)noti
+{
+    AVAudioSessionSilenceSecondaryAudioHintType hint = [[[noti userInfo] valueForKey:AVAudioSessionSilenceSecondaryAudioHintTypeKey] integerValue];
+    if (hint == AVAudioSessionSilenceSecondaryAudioHintTypeBegin) {
+        [self stop];
+        if (self.delegate) {
+            [self.delegate playbackStopped];
+        }
+    }else{
+        [self play];
+        if (self.delegate) {
+            [self.delegate playbackBegan];
         }
     }
 }
