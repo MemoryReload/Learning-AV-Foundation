@@ -29,6 +29,9 @@
 #import "THLevelPair.h"
 #import "THMeterTable.h"
 
+#define CACHE_FILE_NAME              @"voice"
+#define CACHE_FILE_EXTENSION         @"caf"
+
 @interface THRecorderController () <AVAudioRecorderDelegate>
 
 @property (strong, nonatomic) AVAudioPlayer *player;
@@ -39,28 +42,55 @@
 
 @implementation THRecorderController
 
+- (NSString*)documentDirectory
+{
+    NSArray* docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return docs[0];
+}
+
 - (id)init {
     self = [super init];
     if (self) {
-
+        NSString *cachePath = NSTemporaryDirectory();
+        NSString* filePath= [[cachePath stringByAppendingPathComponent:CACHE_FILE_NAME] stringByAppendingPathExtension:CACHE_FILE_EXTENSION];
+        NSLog(@"Cache file path: %@",filePath);
+        NSError* error;
+        _recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:filePath] settings:@{
+                                                                                                  AVFormatIDKey:@(kAudioFormatAppleIMA4),
+                                                                                                  AVSampleRateKey:@44100.0f,
+                                                                                                  AVNumberOfChannelsKey:@1,
+                                                                                                  AVEncoderBitDepthHintKey:@16,
+                                                                                                  AVEncoderAudioQualityKey:@(AVAudioQualityMedium)
+                                                                                                  
+                                                                                                  } error:&error];
+        if (_recorder) {
+            _recorder.delegate = self;
+            [_recorder prepareToRecord];
+        }
+        else{
+            NSLog(@"Init AVAudioRecoder fail: %@", error.localizedDescription);
+        }
     }
     return self;
 }
 
 - (BOOL)record {
-    return NO;
+    return [self.recorder record];
 }
 
 - (void)pause {
-
+    [self.recorder pause];
 }
 
 - (void)stopWithCompletionHandler:(THRecordingStopCompletionHandler)handler {
-
+    self.completionHandler = handler;
+    [self.recorder stop];
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)success {
-
+    if (self.completionHandler) {
+        self.completionHandler(success);
+    }
 }
 
 - (void)saveRecordingWithName:(NSString *)name completionHandler:(THRecordingSaveCompletionHandler)handler {
