@@ -29,7 +29,7 @@
 #import "THMeterTable.h"
 
 #define MIN_DB -60.0f
-#define TABLE_SIZE 300
+#define TABLE_SIZE 600
 
 @implementation THMeterTable {
     float _scaleFactor;

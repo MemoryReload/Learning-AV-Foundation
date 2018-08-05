@@ -41,6 +41,9 @@
 @end
 
 @implementation THRecorderController
+{
+    THMeterTable* _meterTable;
+}
 
 - (NSString*)documentDirectory
 {
@@ -48,14 +51,19 @@
     return docs[0];
 }
 
+- (NSString*)cacheFilePath
+{
+    NSString *cachePath = NSTemporaryDirectory();
+    NSString* filePath= [[cachePath stringByAppendingPathComponent:CACHE_FILE_NAME] stringByAppendingPathExtension:CACHE_FILE_EXTENSION];
+    NSLog(@"Cache file path: %@",filePath);
+    return filePath;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
-        NSString *cachePath = NSTemporaryDirectory();
-        NSString* filePath= [[cachePath stringByAppendingPathComponent:CACHE_FILE_NAME] stringByAppendingPathExtension:CACHE_FILE_EXTENSION];
-        NSLog(@"Cache file path: %@",filePath);
         NSError* error;
-        _recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:filePath] settings:@{
+        _recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:[self cacheFilePath]] settings:@{
                                                                                                   AVFormatIDKey:@(kAudioFormatAppleIMA4),
                                                                                                   AVSampleRateKey:@44100.0f,
                                                                                                   AVNumberOfChannelsKey:@1,
@@ -65,6 +73,8 @@
                                                                                                   } error:&error];
         if (_recorder) {
             _recorder.delegate = self;
+            _recorder.meteringEnabled=YES;
+            _meterTable = [[THMeterTable alloc]init];
             [_recorder prepareToRecord];
         }
         else{
@@ -94,18 +104,52 @@
 }
 
 - (void)saveRecordingWithName:(NSString *)name completionHandler:(THRecordingSaveCompletionHandler)handler {
-
+    NSDateFormatter* fmt =[[NSDateFormatter alloc] init];
+    [fmt setDateFormat:@"YYYY-MM-HH:mm:ss"];
+    NSString* fileName = [NSString stringWithFormat:@"%@_%@",name.length?name:CACHE_FILE_NAME,[fmt stringFromDate:[NSDate date]]];
+    NSString* destFilePath = [[[self documentDirectory] stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:CACHE_FILE_EXTENSION];
+    NSError* error;
+    BOOL result;
+    result = [[NSFileManager defaultManager] copyItemAtPath:[self cacheFilePath] toPath:destFilePath error:&error];
+    if (result) {
+        THMemo* memo = [THMemo memoWithTitle:name url:[NSURL URLWithString:destFilePath]];
+        handler(YES,memo);
+    }
+    else{
+        NSLog(@"Copy cache file failed : %@", error);
+        handler(NO,error);
+    }
 }
 
 - (THLevelPair *)levels {
-    return nil;
+    [self.recorder updateMeters];
+    CGFloat averageDBPower = [self.recorder averagePowerForChannel:0];
+    CGFloat peakDBPower    = [self.recorder peakPowerForChannel:0];
+    CGFloat averageLinearPower = [_meterTable valueForPower:averageDBPower];
+    CGFloat peakLinearPower = [_meterTable valueForPower:peakDBPower];
+    NSLog(@"Linear average:%g peak:%g",averageLinearPower,peakLinearPower);
+    return [[THLevelPair alloc]initWithLevel:averageLinearPower peakLevel:peakLinearPower];
 }
 
 - (NSString *)formattedCurrentTime {
-    return @"00:00:00";
+    NSInteger time = floor(self.recorder.currentTime);
+    NSInteger second = time%60;
+    NSInteger minute = time/60%60;
+    NSInteger hour = time/(60*60)%60;
+    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
 }
 
 - (BOOL)playbackMemo:(THMemo *)memo {
+    [self.player stop];
+    NSError* error;
+    self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:memo.url error:&error];
+    if (self.player) {
+        [self.player play];
+        return YES;
+    }
+    else{
+        NSLog(@"Setup play failed: %@",error);
+    }
     return NO;
 }
 

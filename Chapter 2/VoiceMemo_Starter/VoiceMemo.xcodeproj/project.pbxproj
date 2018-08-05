@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		634E91152116A2CC007974B0 /* VoiceMemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E91142116A2CC007974B0 /* VoiceMemoTests.m */; };
+		634E911C2116A2E0007974B0 /* THRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C444B55F178616570089AB60 /* THRecorderController.m */; };
 		C444B560178616570089AB60 /* THRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = C444B55F178616570089AB60 /* THRecorderController.m */; };
 		C444B563178630FB0089AB60 /* THMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C444B562178630FB0089AB60 /* THMemo.m */; };
 		C444B56617863BCD0089AB60 /* THMemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C444B56517863BCD0089AB60 /* THMemoCell.m */; };
@@ -23,9 +25,26 @@
 		C4EF689B177E7A9400D4EF9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EF6899177E7A9400D4EF9D /* Main.storyboard */; };
 		C4EF68A0177E7A9400D4EF9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EF689F177E7A9400D4EF9D /* Images.xcassets */; };
 		C4EF68BE177E7CA700D4EF9D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EF68BD177E7CA700D4EF9D /* MainViewController.m */; };
+		D8501BA2E9367BC1FFC40B58 /* libPods-VoiceMemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5B65C045888BE08886932E /* libPods-VoiceMemoTests.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		634E91172116A2CC007974B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4EF687C177E7A9400D4EF9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4EF6883177E7A9400D4EF9D;
+			remoteInfo = VoiceMemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		634E91122116A2CC007974B0 /* VoiceMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		634E91142116A2CC007974B0 /* VoiceMemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceMemoTests.m; sourceTree = "<group>"; };
+		634E91162116A2CC007974B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F25E49B9D13268D7AF216EC /* Pods-VoiceMemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceMemoTests/Pods-VoiceMemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A5B65C045888BE08886932E /* libPods-VoiceMemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceMemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE73D7BB30374032691951FA /* Pods-VoiceMemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceMemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceMemoTests/Pods-VoiceMemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		C444B55E178616570089AB60 /* THRecorderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THRecorderController.h; sourceTree = "<group>"; };
 		C444B55F178616570089AB60 /* THRecorderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THRecorderController.m; sourceTree = "<group>"; };
 		C444B561178630FB0089AB60 /* THMemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THMemo.h; sourceTree = "<group>"; };
@@ -58,6 +77,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		634E910F2116A2CC007974B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8501BA2E9367BC1FFC40B58 /* libPods-VoiceMemoTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C4EF6881177E7A9400D4EF9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +98,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		634E91132116A2CC007974B0 /* VoiceMemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				634E91142116A2CC007974B0 /* VoiceMemoTests.m */,
+				634E91162116A2CC007974B0 /* Info.plist */,
+			);
+			path = VoiceMemoTests;
+			sourceTree = "<group>";
+		};
+		8A4AC2BDE61162D18779DD19 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8F25E49B9D13268D7AF216EC /* Pods-VoiceMemoTests.debug.xcconfig */,
+				AE73D7BB30374032691951FA /* Pods-VoiceMemoTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C45A53DD1789D688005C7554 /* LevelMeter */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				C4EF688D177E7A9400D4EF9D /* VoiceMemo */,
+				634E91132116A2CC007974B0 /* VoiceMemoTests */,
 				C4EF6886177E7A9400D4EF9D /* Frameworks */,
 				C4EF6885177E7A9400D4EF9D /* Products */,
+				8A4AC2BDE61162D18779DD19 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				C4EF6884177E7A9400D4EF9D /* VoiceMemo.app */,
+				634E91122116A2CC007974B0 /* VoiceMemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +183,7 @@
 				C4EF6889177E7A9400D4EF9D /* CoreGraphics.framework */,
 				C4EF688B177E7A9400D4EF9D /* UIKit.framework */,
 				C4EF68A6177E7A9400D4EF9D /* XCTest.framework */,
+				9A5B65C045888BE08886932E /* libPods-VoiceMemoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +214,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		634E91112116A2CC007974B0 /* VoiceMemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 634E911B2116A2CC007974B0 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */;
+			buildPhases = (
+				07CE1A635989C62AA0B8D1F5 /* [CP] Check Pods Manifest.lock */,
+				634E910E2116A2CC007974B0 /* Sources */,
+				634E910F2116A2CC007974B0 /* Frameworks */,
+				634E91102116A2CC007974B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				634E91182116A2CC007974B0 /* PBXTargetDependency */,
+			);
+			name = VoiceMemoTests;
+			productName = VoiceMemoTests;
+			productReference = 634E91122116A2CC007974B0 /* VoiceMemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C4EF6883177E7A9400D4EF9D /* VoiceMemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4EF68B6177E7A9400D4EF9D /* Build configuration list for PBXNativeTarget "VoiceMemo" */;
@@ -191,6 +259,12 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Bob McCune";
 				TargetAttributes = {
+					634E91112116A2CC007974B0 = {
+						CreatedOnToolsVersion = 9.4.1;
+						DevelopmentTeam = Z86DT6Z4G7;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C4EF6883177E7A9400D4EF9D;
+					};
 					C4EF6883177E7A9400D4EF9D = {
 						DevelopmentTeam = Z86DT6Z4G7;
 					};
@@ -210,11 +284,19 @@
 			projectRoot = "";
 			targets = (
 				C4EF6883177E7A9400D4EF9D /* VoiceMemo */,
+				634E91112116A2CC007974B0 /* VoiceMemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		634E91102116A2CC007974B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C4EF6882177E7A9400D4EF9D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,7 +309,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07CE1A635989C62AA0B8D1F5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceMemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		634E910E2116A2CC007974B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				634E91152116A2CC007974B0 /* VoiceMemoTests.m in Sources */,
+				634E911C2116A2E0007974B0 /* THRecorderController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C4EF6880177E7A9400D4EF9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,6 +358,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		634E91182116A2CC007974B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4EF6883177E7A9400D4EF9D /* VoiceMemo */;
+			targetProxy = 634E91172116A2CC007974B0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C4EF6890177E7A9400D4EF9D /* InfoPlist.strings */ = {
@@ -267,6 +387,79 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		634E91192116A2CC007974B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F25E49B9D13268D7AF216EC /* Pods-VoiceMemoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z86DT6Z4G7;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = VoiceMemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neal-marlin.VoiceMemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/VoiceMemo";
+			};
+			name = Debug;
+		};
+		634E911A2116A2CC007974B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE73D7BB30374032691951FA /* Pods-VoiceMemoTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z86DT6Z4G7;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = VoiceMemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neal-marlin.VoiceMemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/VoiceMemo";
+			};
+			name = Release;
+		};
 		C4EF68B4177E7A9400D4EF9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -383,6 +576,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		634E911B2116A2CC007974B0 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				634E91192116A2CC007974B0 /* Debug */,
+				634E911A2116A2CC007974B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C4EF687F177E7A9400D4EF9D /* Build configuration list for PBXProject "VoiceMemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
